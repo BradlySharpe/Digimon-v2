@@ -10,9 +10,9 @@ class Dbase {
 	public $_last_query = null;
 	public $_affected_rows = 0;
 
-	public $_insert_keys = array();
-	public $_insert_values = array();
-	public $_update_sets = array();
+	public $_insert_keys = [];
+	public $_insert_values = [];
+	public $_update_sets = [];
 
 	public $_id;
 	private $logic;
@@ -75,7 +75,7 @@ class Dbase {
 
 	public function fetchAll($sql) {
 		$result = $this->query($sql);
-		$out = array();
+		$out = [];
 		while($row = mysql_fetch_assoc($result)) {
 			$out[] = $row;
 		}
