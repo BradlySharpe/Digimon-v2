@@ -1,16 +1,7 @@
 DROP DATABASE IF EXISTS Digimon;
 
-CREATE DATABASE IF NOT EXISTS Digimon;
+CREATE DATABASE Digimon;
 USE Digimon;
-
-DROP TABLE IF EXISTS `Action`;
-DROP TABLE IF EXISTS `Monster`;
-DROP TABLE IF EXISTS `Digimon`;
-DROP TABLE IF EXISTS `Event`;
-DROP TABLE IF EXISTS `Sprite`;
-DROP TABLE IF EXISTS `Stage`;
-DROP TABLE IF EXISTS `State`;
-DROP TABLE IF EXISTS `User`;
 
 -- Create User table
 CREATE TABLE User (
@@ -161,3 +152,8 @@ INSERT INTO Event (`name`)
 
 INSERT INTO User (`firstname`, `lastname`, `email`, `dob`, `password`)
   VALUES ('Bradly', 'Sharpe', 'fake@bradlysharpe.com.au', '1989-12-02', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8');
+
+
+-- Activate objects
+UPDATE Digimon SET active = 1;
+UPDATE User SET active = 1;
