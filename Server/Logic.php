@@ -11,7 +11,7 @@
   	}
 
     public function loginUser($username, $password) {
-      $this->output(array(
+      $this->output->respond(array(
         'loggedIn' => false
       ));
     }
