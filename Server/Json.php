@@ -1,6 +1,12 @@
 <?php
 
   class Json {
+    function getHeaders() {
+      return array(
+        'Content-Type: application/json'
+      );
+    }
+
     function error($message) {
       echo json_encode(
         array(
