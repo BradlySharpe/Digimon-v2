@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS Digimon;
+
 CREATE DATABASE IF NOT EXISTS Digimon;
 USE Digimon;
 
@@ -115,20 +117,20 @@ INSERT INTO Stage (`name`)
 
 INSERT INTO Digimon (`name`, `stage`)
   VALUES
-    ('Botamon', SELECT `id` FROM Stage WHERE `name` = 'Baby'),
-    ('Koromon', SELECT `id` FROM Stage WHERE `name` = 'In-Training'),
-    ('Agumon', SELECT `id` FROM Stage WHERE `name` = 'Rookie'),
-    ('Betamon', SELECT `id` FROM Stage WHERE `name` = 'Rookie'),
-    ('Greymon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Tyranomon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Devimon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Meramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Airdramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Seadramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Numemon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
-    ('Metal Greymon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate'),
-    ('Mamemon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate'),
-    ('Monzaemon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate');
+    ('Botamon', (SELECT `id` FROM Stage WHERE `name` = 'Baby')),
+    ('Koromon', (SELECT `id` FROM Stage WHERE `name` = 'In-Training')),
+    ('Agumon', (SELECT `id` FROM Stage WHERE `name` = 'Rookie')),
+    ('Betamon', (SELECT `id` FROM Stage WHERE `name` = 'Rookie')),
+    ('Greymon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Tyranomon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Devimon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Meramon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Airdramon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Seadramon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Numemon', (SELECT `id` FROM Stage WHERE `name` = 'Champion')),
+    ('Metal Greymon', (SELECT `id` FROM Stage WHERE `name` = 'Ultimate')),
+    ('Mamemon', (SELECT `id` FROM Stage WHERE `name` = 'Ultimate')),
+    ('Monzaemon', (SELECT `id` FROM Stage WHERE `name` = 'Ultimate'));
 
 INSERT INTO State (`name`)
   VALUES
@@ -156,3 +158,6 @@ INSERT INTO Event (`name`)
     ('train'),
     ('battle'),
     ('poop');
+
+INSERT INTO User (`firstname`, `lastname`, `email`, `dob`, `password`)
+  VALUES ('Bradly', 'Sharpe', 'fake@bradlysharpe.com.au', '1989-12-02', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8');
