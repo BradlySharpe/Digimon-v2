@@ -15,24 +15,22 @@ class Dbase {
 	public $_update_sets = array();
 
 	public $_id;
-	private $_logic;
+	private $logic;
 
-	public function __construct($logic) {
-		$this->_logic = $logic;
+	public function __construct($_logic) {
+		$this->logic = $_logic;
 		$this->connect();
 	}
-
-	public function error
 
 	private function connect() {
 		$this->_conndb = mysql_connect($this->_host, $this->_user, $this->_password);
 
 		if (!$this->_conndb) {
-			$this->_logic->error("Database connection failed: " . mysql_error());
+			$this->logic->output->error("Database connection failed: " . mysql_error());
 		} else {
 			$_select = mysql_select_db($this->_name, $this->_conndb);
 			if (!$_select) {
-				$this->_logic->error("Database selection failed:<br />" . mysql_error());
+				$this->logic->output->error("Database selection failed:<br />" . mysql_error());
 			}
 		}
 		mysql_set_charset("utf8", $this->_conndb);
@@ -40,7 +38,7 @@ class Dbase {
 
 	public function close() {
 		if (!mysql_close($this->_conndb)) {
-			$this->_logic->error("Closing connection failed.");
+			$this->logic->output->error("Closing connection failed.");
 		}
 	}
 
@@ -69,7 +67,7 @@ class Dbase {
 		if(!$result) {
 			$output  = "Database query failed: ". mysql_error() . " - ";
 			$output .= "Last SQL query was: ".$this->_last_query;
-			$this->_logic->error($output);
+			$this->logic->output->error($output);
 		} else {
 			$this->_affected_rows = mysql_affected_rows($this->_conndb);
 		}
