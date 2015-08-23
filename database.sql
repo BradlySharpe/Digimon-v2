@@ -150,9 +150,9 @@ INSERT INTO State (`name`)
 
 INSERT INTO Event (`name`)
   VALUES
-    ('created'),
-    ('evolved'),
-    ('died'),
+    ('create'),
+    ('evolve'),
+    ('die'),
     ('meat'),
     ('vitamin'),
     ('train'),
