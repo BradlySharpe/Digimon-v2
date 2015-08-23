@@ -83,19 +83,38 @@ ALTER TABLE `Monster`
 -- Create Event table
 CREATE TABLE Event (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30) NOT NULL
+  name VARCHAR(30) NOT NULL,
+  userEvent BOOLEAN NOT NULL DEFAULT 1
 );
+
+-- Create Function: isUserEvent
+DELIMITER $$
+CREATE FUNCTION `isUserEvent`(name VARCHAR(30))
+	RETURNS BOOLEAN
+BEGIN
+	DECLARE userEvent BOOLEAN;
+	SELECT `userEvent` INTO userEvent FROM Event WHERE `name` = name;
+	RETURN userEvent;
+END$$
+DELIMITER ;
 
 -- Create Action table
 CREATE TABLE Action (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  user INT NULL,
   event INT NOT NULL,
   value VARCHAR(50) NOT NULL,
   triggered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE `Action`
+  ADD INDEX `user` (`user`),
   ADD INDEX `event` (`event`),
+  ADD CONSTRAINT ck_Action_UserId
+    CHECK (
+      `user` IS NULL AND (0 = isUserEvent(event)) AND
+      `user` IS NOT NULL AND (1 = isUserEvent(event))
+    ),
   ADD CONSTRAINT fk_Action_EventId
     FOREIGN KEY (event)
       REFERENCES Event(id);
@@ -139,16 +158,19 @@ INSERT INTO State (`name`)
     ('sleep-big'),
     ('sleep-small');
 
-INSERT INTO Event (`name`)
+INSERT INTO Event (`name`, `userEvent`)
   VALUES
-    ('create'),
-    ('evolve'),
-    ('die'),
-    ('meat'),
-    ('vitamin'),
-    ('train'),
-    ('battle'),
-    ('poop');
+    ('create', 1),
+    ('evolve', 1),
+    ('die', 1),
+    ('meat', 1),
+    ('vitamin', 1),
+    ('train', 1),
+    ('battle', 1),
+    ('poop', 1),
+    ('pageview', 0),
+    ('log-in', 1),
+    ('log-out', 1);
 
 INSERT INTO User (`firstname`, `lastname`, `email`, `dob`, `password`)
   VALUES ('Bradly', 'Sharpe', 'fake@bradlysharpe.com.au', '1989-12-02', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8');
