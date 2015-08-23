@@ -11,7 +11,7 @@
       die();
     }
 
-    function output($data) {
+    function respond($data) {
       echo json_encode(
         array(
           'error' => false,
