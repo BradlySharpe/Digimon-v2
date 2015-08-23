@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS Digimon;
+USE Digimon;
+
 DROP TABLE IF EXISTS `Action`;
 DROP TABLE IF EXISTS `Monster`;
 DROP TABLE IF EXISTS `Digimon`;
@@ -59,7 +62,9 @@ ALTER TABLE `State`
 CREATE TABLE Sprite (
   id INT AUTO_INCREMENT PRIMARY KEY,
   digimon INT NOT NULL,
-  state INT NOT NULL
+  state INT NOT NULL,
+  height INT NOT NULL,
+  width INT NOT NULL
 );
 
 ALTER TABLE `Sprite`
@@ -92,6 +97,7 @@ CREATE TABLE Event (
 CREATE TABLE Action (
   id INT AUTO_INCREMENT PRIMARY KEY,
   event INT NOT NULL,
+  value VARCHAR(50) NOT NULL,
   triggered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -100,3 +106,53 @@ ALTER TABLE `Action`
   ADD CONSTRAINT fk_Action_EventId
     FOREIGN KEY (event)
       REFERENCES Event(id);
+
+
+-- Populate with default data
+INSERT INTO Stage (`name`)
+  VALUES
+    ('Baby'), ('In-Training'), ('Rookie'), ('Champion'), ('Ultimate');
+
+INSERT INTO Digimon (`name`, `stage`)
+  VALUES
+    ('Botamon', SELECT `id` FROM Stage WHERE `name` = 'Baby'),
+    ('Koromon', SELECT `id` FROM Stage WHERE `name` = 'In-Training'),
+    ('Agumon', SELECT `id` FROM Stage WHERE `name` = 'Rookie'),
+    ('Betamon', SELECT `id` FROM Stage WHERE `name` = 'Rookie'),
+    ('Greymon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Tyranomon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Devimon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Meramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Airdramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Seadramon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Numemon', SELECT `id` FROM Stage WHERE `name` = 'Champion'),
+    ('Metal Greymon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate'),
+    ('Mamemon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate'),
+    ('Monzaemon', SELECT `id` FROM Stage WHERE `name` = 'Ultimate');
+
+INSERT INTO State (`name`)
+  VALUES
+    ('big-left'),
+    ('big-right'),
+    ('small-left'),
+    ('small-right'),
+    ('eating'),
+    ('happy'),
+    ('refuse'),
+    ('angry'),
+    ('attack'),
+    ('hurt-big'),
+    ('hurt-small'),
+    ('sleep-big'),
+    ('sleep-small');
+
+INSERT INTO Event (`name`)
+  VALUES
+    ('created'),
+    ('evolved'),
+    ('died'),
+    ('meat'),
+    ('vitamin'),
+    ('train'),
+    ('battle'),
+    ('poop');
