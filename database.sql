@@ -179,3 +179,6 @@ INSERT INTO User (`firstname`, `lastname`, `email`, `dob`, `password`)
 -- Activate objects
 UPDATE Digimon SET active = 1;
 UPDATE User SET active = 1;
+
+
+UPDATE User SET active = 0;
